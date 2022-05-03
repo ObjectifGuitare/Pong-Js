@@ -1,0 +1,39 @@
+body
+{
+    background-color: black;
+}
+
+.board
+{
+    background-color: rgb(70, 59, 59);
+    height: 80vh;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+div
+{
+    background-color: white;
+    border: 1px red solid;
+}
+
+.ball
+{
+    border-radius: 500px;
+    background-color: blue;
+    border: 3px green solid;
+    height: 80px;
+    width: 80px;
+}
+
+.raquette
+{
+    height: 220px;
+    width: 20px;
+    border: 2px black solid; 
+    margin: 0px;
+}
