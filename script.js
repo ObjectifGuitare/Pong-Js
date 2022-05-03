@@ -13,46 +13,57 @@ let boardRightX = 500;
 
 function movePaddle(e)
 {
-    paddleLeft.style.position = 'absolute';
-    if (paddleLeft.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
+    if (paddleRight.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
         e.code === "ArrowUp")
+    {
+        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 15}px`
+    }
+
+    else if ( paddleRight.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
+        e.code === "ArrowDown")
+    {
+        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top + 15}px`
+    }
+    else if (paddleLeft.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
+        e.code === "KeyA")
     {
         paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top - 15}px`
     }
 
     else if ( paddleLeft.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
-        e.code === "ArrowDown")
+        e.code === "KeyW")
     {
         paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top + 15}px`
     }
-    
+
+
 }
 
 //fluid way to move the paddle 60fps no scope 360
 document.body.addEventListener("keydown", (e) =>{
     let startPaddleMove = setInterval(() => {movePaddle(e)}, Math.ceil(1000/60));
     document.body.addEventListener("keyup", () =>{clearInterval(startPaddleMove)});
-    document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
+    // document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
 
 });
 
 function moveBall()
 {
     if (movePossible.down && movePossible.right){
-        ball.style.top = `${ball.getBoundingClientRect().top + 1}px`;
-        ball.style.left = `${ball.getBoundingClientRect().left + 1}px`;
+        ball.style.top = `${ball.getBoundingClientRect().top + 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 3}px`;
     }
     if (movePossible.down && movePossible.left){
-        ball.style.top = `${ball.getBoundingClientRect().top + 1}px`;
-        ball.style.left = `${ball.getBoundingClientRect().left - 1}px`;
+        ball.style.top = `${ball.getBoundingClientRect().top + 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 3}px`;
     }
     if (movePossible.up && movePossible.left){
-        ball.style.top = `${ball.getBoundingClientRect().top - 1}px`;
-        ball.style.left = `${ball.getBoundingClientRect().left - 1}px`;
+        ball.style.top = `${ball.getBoundingClientRect().top - 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 3}px`;
     }
     if (movePossible.up && movePossible.right){
-        ball.style.top = `${ball.getBoundingClientRect().top - 1}px`;
-        ball.style.left = `${ball.getBoundingClientRect().left + 1}px`;
+        ball.style.top = `${ball.getBoundingClientRect().top - 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 3}px`;
     }
     if (ball.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 440)
     {
@@ -70,7 +81,7 @@ function moveBall()
     //     movePossible.right = 1;
     //     movePossible.left = 0;
     // }
-    if (ball.getBoundingClientRect().left == paddleRight.getBoundingClientRect().left &&)
+    if (ball.getBoundingClientRect().left == paddleRight.getBoundingClientRect().left)
     {
         movePossible.right = 0;
         movePossible.left = 1;
