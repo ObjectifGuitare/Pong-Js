@@ -1,30 +1,29 @@
+let ball = document.querySelector(".ball");
+let paddleLeft = document.querySelector(".Rgauche");
+let paddleRight = document.querySelector(".Rdroite");
+let movePossible = {
+    left : 0,
+    right : 1,
+    up : 1,
+    down : 0
+};
+
 let boardBottomY = 300;
 let boardRightX = 500;
-let begin = 1;
-
-let paddleRight = {
-    x: document.querySelector(".Rdroite").getBoundingClientRect().left,
-    y: document.querySelector(".Rdroite").getBoundingClientRect().top
-}
-
-let paddleLeft = {
-    x: document.querySelector(".Rgauche").getBoundingClientRect().left,
-    y: document.querySelector(".Rgauche").getBoundingClientRect().top
-}
 
 function movePaddle(e)
 {
-    document.querySelector(".Rgauche").style.position = 'absolute';
-    if (document.querySelector(".Rgauche").getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
+    paddleLeft.style.position = 'absolute';
+    if (paddleLeft.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
         e.code === "ArrowUp")
     {
-        document.querySelector(".Rgauche").style.top = `${document.querySelector(".Rgauche").getBoundingClientRect().top - 15}px`
+        paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top - 15}px`
     }
 
-    else if ( document.querySelector(".Rgauche").getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
+    else if ( paddleLeft.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
         e.code === "ArrowDown")
     {
-        document.querySelector(".Rgauche").style.top = `${document.querySelector(".Rgauche").getBoundingClientRect().top + 15}px`
+        paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top + 15}px`
     }
     
 }
@@ -37,22 +36,63 @@ document.body.addEventListener("keydown", (e) =>{
 
 });
 
-
 function moveBall()
 {
-    if (begin)
-    {
-        document.querySelector(".ball").style.top = `${document.querySelector(".ball").getBoundingClientRect().top + 1}px`;
-        document.querySelector(".ball").style.left = `${document.querySelector(".ball").getBoundingClientRect().left + 1}px`;
-        console.log("bonjour")
+    if (movePossible.down && movePossible.right){
+        ball.style.top = `${ball.getBoundingClientRect().top + 1}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 1}px`;
     }
-    if (document.querySelector(".ball").getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + 480)
-    {
-        begin = 0;
-        document.querySelector(".ball").style.top = `${document.querySelector(".ball").getBoundingClientRect().top - 1}px`;
-        document.querySelector(".ball").style.left = `${document.querySelector(".ball").getBoundingClientRect().left - 1}px`;
-        console.log("aurevoir")
+    if (movePossible.down && movePossible.left){
+        ball.style.top = `${ball.getBoundingClientRect().top + 1}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 1}px`;
     }
+    if (movePossible.up && movePossible.left){
+        ball.style.top = `${ball.getBoundingClientRect().top - 1}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 1}px`;
+    }
+    if (movePossible.up && movePossible.right){
+        ball.style.top = `${ball.getBoundingClientRect().top - 1}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 1}px`;
+    }
+    if (ball.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 440)
+    {
+        movePossible.down = 0;
+        movePossible.up = 1;
+
+    }
+    if (ball.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + 5)
+    {
+        movePossible.down = 1;
+        movePossible.up = 0;
+    }
+    // if (ball.getBoundingClientRect().top)
+    // {
+    //     movePossible.right = 1;
+    //     movePossible.left = 0;
+    // }
+    if (ball.getBoundingClientRect().left == paddleRight.getBoundingClientRect().left &&)
+    {
+        movePossible.right = 0;
+        movePossible.left = 1;
+    }
+     // if ()
+    // {
+    //     movePossible.right = 0;
+    //     movePossible.left = 0;
+    //     movePossible.up = 0;
+    //     movePossible.down = 0;
+    // }
+    // if ()
+    // {
+    //     movePossible.right = 0;
+    //     movePossible.left = 0;
+    //     movePossible.up = 0;
+    //     movePossible.down = 0;
+
+    // }
     
 }
-let startBallMove = setInterval(() =>{moveBall(begin)}, Math.ceil(1000/60));
+
+
+
+let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
