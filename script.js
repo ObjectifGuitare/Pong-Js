@@ -76,15 +76,16 @@ function moveBall()
         movePossible.down = 1;
         movePossible.up = 0;
     }
-    // if (ball.getBoundingClientRect().top)
-    // {
-    //     movePossible.right = 1;
-    //     movePossible.left = 0;
-    // }
-    if (ball.getBoundingClientRect().left == paddleRight.getBoundingClientRect().left)
+    if (ball.getBoundingClientRect().left < paddleLeft.getBoundingClientRect().left + 25)
+    {
+        movePossible.right = 1;
+        movePossible.left = 0;
+    }
+    if (ball.getBoundingClientRect().left > paddleRight.getBoundingClientRect().left - 56)
     {
         movePossible.right = 0;
         movePossible.left = 1;
+        console.log("bonjouir")
     }
      // if ()
     // {
