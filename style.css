@@ -36,14 +36,13 @@ body {
     top: 200px;
 }
 
-.raquette {
-    background-image: url('img/surf.png');
+.raquette, img {
     position: absolute;
     height: 220px;
     width: 20px;
-    border: 2px black solid; 
     margin: 0px;
 }
+
 
 .Rdroite {
     left: 1200px;
