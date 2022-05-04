@@ -16,7 +16,7 @@ function movePaddle(e)
     if (paddleRight.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
         e.code === "ArrowUp")
     {
-        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 30}px`
+        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 15}px`
     }
 
     else if ( paddleRight.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
