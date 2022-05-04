@@ -113,3 +113,10 @@ function moveBall()
 }
 
 let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
+
+// reset ball
+
+function resetBall(){
+    ball.style.top = '200px'
+    ball.style.left = '700px'
+}
