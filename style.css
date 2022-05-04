@@ -1,5 +1,16 @@
 body {
-    background-color: black;
+    display: flex;
+    background-image: url('img/beach.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+}
+
+h1 {
+    padding: 50px;
 }
 
 .board {
