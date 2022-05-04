@@ -45,7 +45,9 @@ document.body.addEventListener("keydown", (e) =>{
     document.body.addEventListener("keyup", () =>{clearInterval(startPaddleMove)});
     // document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
 
+
 });
+
 
 function moveBall()
 {
@@ -91,6 +93,7 @@ function moveBall()
     {
         movePossible.right = 0;
         movePossible.left = 1;
+
     }
     if (ball.getBoundingClientRect().left > paddleRight.getBoundingClientRect().left - 20 )
     {
@@ -113,8 +116,6 @@ function moveBall()
 }
 
 let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
-
-// reset ball
 
 function resetBall(){
     ball.style.top = '200px'
