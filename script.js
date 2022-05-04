@@ -7,6 +7,8 @@ let movePossible = {
     up : 1,
     down : 0
 };
+let scoreleft = 0
+let scoreright = 0
 
 let boardBottomY = 300;
 let boardRightX = 500;
@@ -17,6 +19,7 @@ function movePaddle(e)
         e.code === "ArrowUp")
     {
         paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 15}px`
+
     }
 
     else if ( paddleRight.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
@@ -35,18 +38,13 @@ function movePaddle(e)
     {
         paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top + 15}px`
     }
-
-
 }
-
 //fluid way to move the paddle 60fps no scope 360
 document.body.addEventListener("keydown", (e) =>{
     let startPaddleMove = setInterval(() => {movePaddle(e)}, Math.ceil(1000/60));
     document.body.addEventListener("keyup", () =>{clearInterval(startPaddleMove)});
     // document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
-
 });
-
 function moveBall()
 {
     if (movePossible.down && movePossible.right){
@@ -69,7 +67,6 @@ function moveBall()
     {
         movePossible.down = 0;
         movePossible.up = 1;
-
     }
     if (ball.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + 5)
     {
@@ -100,6 +97,8 @@ function moveBall()
         movePossible.down = 0;
         clearInterval(startBallMove);
         //add score event here   +1 for left side --- score event needs to reset position of the ball and set properties of movePossible to 1
+        scoreleft++
+        document.querySelector("#scoreLeft").innerHTML=scoreleft
     }
     if (ball.getBoundingClientRect().left < paddleLeft.getBoundingClientRect().left - 10)
     {
@@ -109,6 +108,8 @@ function moveBall()
         movePossible.down = 0;
         clearInterval(startBallMove);
         //add score event here   +1 for right side --- score event needs to reset position of the ball and set properties of movePossible to 1
+        scoreright++
+        document.querySelector("#scoreRight").innerHTML=scoreright
     }
 }
 
@@ -117,6 +118,5 @@ let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
 // reset ball
 
 function resetBall(){
-    ball.style.top = '200px'
-    ball.style.left = '700px'
+    ball
 }

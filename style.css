@@ -1,0 +1,49 @@
+body {
+    background-color: #235da8;
+}
+
+.board {
+    background-image: url('img/beach.jpg');
+    background-size: cover;
+    height: 500px;
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-left: 200px;
+    margin-top: 30px;
+    border: solid 7.5px #ead395;
+    border-radius: 20px;
+}
+
+.net {
+    width: 20px;
+    background-image: url('img/net.jpg');
+    background-size:cover;
+    border: solid 1px black;
+    border-radius: 20px;
+}
+
+.ball {
+    border-radius: 100%;
+    background-image: url('img/ball.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 700px;
+    top: 200px;
+}
+
+.raquette, img {
+    position: absolute;
+    height: 220px;
+    width: 20px;
+    margin: 0px;
+}
+
+
+.Rdroite {
+    left: 1200px;
+}
