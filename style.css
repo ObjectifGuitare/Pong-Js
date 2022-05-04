@@ -13,6 +13,8 @@ h2 {
 }
 
 span {
+    margin: 20px;
+    padding: 10px;
     background-color: #235da8;
     border-radius: 20px;
     font-family: 'Roboto Mono', monospace;
@@ -74,5 +76,5 @@ img {
 
 
 .Rdroite {
-    left:975px;
+    left: 975px;
 }
