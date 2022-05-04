@@ -99,7 +99,7 @@ function moveBall()
         movePossible.up = 0;
         movePossible.down = 0;
         clearInterval(startBallMove);
-        //add score event here
+        //add score event here   +1 for left side --- score event needs to reset position of the ball and set properties of movePossible to 1
     }
     if (ball.getBoundingClientRect().left < paddleLeft.getBoundingClientRect().left - 10)
     {
@@ -108,11 +108,8 @@ function moveBall()
         movePossible.up = 0;
         movePossible.down = 0;
         clearInterval(startBallMove);
-        //add score event here
+        //add score event here   +1 for right side --- score event needs to reset position of the ball and set properties of movePossible to 1
     }
-    
 }
-
-
 
 let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
