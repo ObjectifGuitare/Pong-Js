@@ -1,7 +1,13 @@
-.board {
-    width: 80%;
-    height: 80vh;
-    margin: 10px;
-    border: solid 3px black;
+body{
+	background-color:black;
+}
 
+#pong{
+	border: 2px solid rgb(255, 255, 255);
+	position: absolute;
+	margin :auto;
+	top:0;
+	right:0;
+	left:0;
+	bottom:0;
 }
