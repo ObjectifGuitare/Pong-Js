@@ -11,15 +11,12 @@ let scoreleft = 0
 let scoreright = 0
 
 let boardBottomY = 300;
-let boardRightX = 500;
-
 function movePaddle(e)
 {
     if (paddleRight.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
         e.code === "ArrowUp")
     {
         paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 15}px`
-
     }
 
     else if ( paddleRight.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
@@ -44,7 +41,11 @@ document.body.addEventListener("keydown", (e) =>{
     let startPaddleMove = setInterval(() => {movePaddle(e)}, Math.ceil(1000/60));
     document.body.addEventListener("keyup", () =>{clearInterval(startPaddleMove)});
     // document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
+
+
 });
+
+
 function moveBall()
 {
     if (movePossible.down && movePossible.right){
@@ -88,6 +89,7 @@ function moveBall()
     {
         movePossible.right = 0;
         movePossible.left = 1;
+
     }
     if (ball.getBoundingClientRect().left > paddleRight.getBoundingClientRect().left - 20 )
     {
@@ -114,8 +116,6 @@ function moveBall()
 }
 
 let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
-
-// reset ball
 
 function resetBall(){
     ball

@@ -1,7 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
 body {
     background-color: #235da8;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
 }
 
+h2 {
+    font-family: 'Satisfy', cursive;
+}
+
+.results {
+    margin-top: 30px;
+    text-align: center;
+    background-color:#ead395;
+    border-radius: 20px;
+    width:150px;
+    height:fit-content;
+}
 .board {
     background-image: url('img/beach.jpg');
     background-size: cover;
@@ -10,7 +27,6 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    margin-left: 200px;
     margin-top: 30px;
     border: solid 7.5px #ead395;
     border-radius: 20px;
@@ -36,14 +52,19 @@ body {
     top: 200px;
 }
 
-.raquette, img {
+.raquette {
     position: absolute;
     height: 220px;
     width: 20px;
     margin: 0px;
 }
 
+img {
+    width: 50px;
+    height: 220px;
+}
+
 
 .Rdroite {
-    left: 1200px;
+    left:975px;
 }
