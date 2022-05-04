@@ -16,6 +16,7 @@ span {
     background-color: #235da8;
     border-radius: 20px;
     font-family: 'Roboto Mono', monospace;
+    color: white;
 }
 
 .results {
