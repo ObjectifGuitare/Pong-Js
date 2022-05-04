@@ -1,12 +1,48 @@
-body{
-	background-color:black;
+body
+{
+    background-color: black;
 }
-#pong{
-	border: 2px solid rgb(255, 255, 255);
-	position: absolute;
-	margin :auto;
-	top:0;
-	right:0;
-	left:0;
-	bottom:0;
+
+.board
+{
+    background-color: rgb(70, 59, 59);
+    height: 500px;
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-left: 200px;
+    margin-top: 30px;
+}
+
+div
+{
+    background-color: white;
+    border: 1px red solid;
+}
+
+.ball
+{
+    border-radius: 500px;
+    background-color: blue;
+    border: 3px green solid;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 700px;
+    top: 200px;
+}
+
+.raquette
+{
+    position: absolute;
+    height: 220px;
+    width: 20px;
+    border: 2px black solid; 
+    margin: 0px;
+}
+
+.Rdroite
+{
+    left: 1200px;
 }

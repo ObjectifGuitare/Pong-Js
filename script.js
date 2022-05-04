@@ -1,204 +1,118 @@
-// sélectionner l'élément de canvas
-const canvas = document.getElementById("pong");
+let ball = document.querySelector(".ball");
+let paddleLeft = document.querySelector(".Rgauche");
+let paddleRight = document.querySelector(".Rdroite");
+let movePossible = {
+    left : 0,
+    right : 1,
+    up : 1,
+    down : 0
+};
 
-// getContext of canvas = méthodes et propriétés pour dessiner et faire beaucoup de choses sur le canvas 
-const ctx = canvas.getContext('2d');
+let boardBottomY = 300;
+let boardRightX = 500;
 
-// load sounds
-let hit = new Audio();
-let wall = new Audio();
-let userScore = new Audio();
-let comScore = new Audio();
+function movePaddle(e)
+{
+    if (paddleRight.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
+        e.code === "ArrowUp")
+    {
+        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top - 15}px`
+    }
 
-// Objet balle
-const ball = {
-    x : canvas.width/2,
-    y : canvas.height/2,
-    radius : 10,
-    velocityX : 9,
-    velocityY : 2,
-    speed : 8,
-    color : "WHITE"
+    else if ( paddleRight.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
+        e.code === "ArrowDown")
+    {
+        paddleRight.style.top = `${paddleRight.getBoundingClientRect().top + 15}px`
+    }
+    else if (paddleLeft.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
+        e.code === "KeyA")
+    {
+        paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top - 15}px`
+    }
+
+    else if ( paddleLeft.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + boardBottomY &&
+        e.code === "KeyW")
+    {
+        paddleLeft.style.top = `${paddleLeft.getBoundingClientRect().top + 15}px`
+    }
+
+
 }
 
-// Utilisateur
-const user = {
-    x : 0, 
-    y : (canvas.height - 100)/2, 
-    width : 10,
-    height : 80,
-    score : 0,
-    color : "blue"
-}
+//fluid way to move the paddle 60fps no scope 360
+document.body.addEventListener("keydown", (e) =>{
+    let startPaddleMove = setInterval(() => {movePaddle(e)}, Math.ceil(1000/60));
+    document.body.addEventListener("keyup", () =>{clearInterval(startPaddleMove)});
+    // document.body.addEventListener("keydown", () =>{clearInterval(startPaddleMove)})
 
-// IA
-const com = {
-    x : canvas.width - 10, // - width of paddle
-    y : (canvas.height - 10)/2, // -100 the height of paddle
-    width : 10,
-    height : 80,
-    score : 0,
-    color : "blue"
-}
+});
 
-// Net
-const net = {
-    x : (canvas.width - 2)/2,
-    y : 0,
-    height : 10,
-    width : 2,
-    color : "blue"
-}
 
-// Dessiner un rectangle, servira à dessiner des pagaies
-function drawRect(x, y, w, h, color){
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, w, h);
-}
+function moveBall()
+{
+    if (movePossible.down && movePossible.right){
+        ball.style.top = `${ball.getBoundingClientRect().top + 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 3}px`;
+    }
+    if (movePossible.down && movePossible.left){
+        ball.style.top = `${ball.getBoundingClientRect().top + 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 3}px`;
+    }
+    if (movePossible.up && movePossible.left){
+        ball.style.top = `${ball.getBoundingClientRect().top - 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left - 3}px`;
+    }
+    if (movePossible.up && movePossible.right){
+        ball.style.top = `${ball.getBoundingClientRect().top - 3}px`;
+        ball.style.left = `${ball.getBoundingClientRect().left + 3}px`;
+    }
+    if (ball.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 440)
+    {
+        movePossible.down = 0;
+        movePossible.up = 1;
 
-// Dessiner un cercle, sera utilisé pour dessiner la balle
-function drawArc(x, y, r, color){
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(x,y,r,0,Math.PI*2,true);
-    ctx.closePath();
-    ctx.fill();
-}
-
-// écouter la souris
-canvas.addEventListener("mousemove", getMousePos);
-
-function getMousePos(evt){
-    let rect = canvas.getBoundingClientRect();
-    
-    user.y = evt.clientY - rect.top - user.height/2;
-}
-
-// lorsque COM ou Utilisateur marque, nous réinitialisons la balle
-function resetBall(){
-    ball.x = canvas.width/2;
-    ball.y = canvas.height/2;
-    ball.velocityX = -ball.velocityX;
-    ball.speed = 7;
-}
-
-// Tirer le filet
-function drawNet(){
-    for(let i = 0; i <= canvas.height; i+=15){
-        drawRect(net.x, net.y + i, net.width, net.height, net.color);
+    }
+    if (ball.getBoundingClientRect().top < document.querySelector(".board").getBoundingClientRect().top + 5)
+    {
+        movePossible.down = 1;
+        movePossible.up = 0;
+    }
+    if (
+        ball.getBoundingClientRect().left < paddleLeft.getBoundingClientRect().left + 25 && 
+        (ball.getBoundingClientRect().top > paddleLeft.getBoundingClientRect().top && ball.getBoundingClientRect().top < paddleLeft.getBoundingClientRect().top + 220)
+    )
+    {
+        movePossible.right = 1;
+        movePossible.left = 0;
+    }
+    if (
+        ball.getBoundingClientRect().left > paddleRight.getBoundingClientRect().left - 56 && 
+        (ball.getBoundingClientRect().top > paddleRight.getBoundingClientRect().top && ball.getBoundingClientRect().top < paddleRight.getBoundingClientRect().top + 220)
+    )
+    {
+        movePossible.right = 0;
+        movePossible.left = 1;
+    }
+    if (ball.getBoundingClientRect().left > paddleRight.getBoundingClientRect().left - 20 )
+    {
+        movePossible.right = 0;
+        movePossible.left = 0;
+        movePossible.up = 0;
+        movePossible.down = 0;
+        clearInterval(startBallMove);
+        //add score event here   +1 for left side --- score event needs to reset position of the ball and set properties of movePossible to 1
+    }
+    if (ball.getBoundingClientRect().left < paddleLeft.getBoundingClientRect().left - 10)
+    {
+        movePossible.right = 0;
+        movePossible.left = 0;
+        movePossible.up = 0;
+        movePossible.down = 0;
+        clearInterval(startBallMove);
+        //add score event here   +1 for right side --- score event needs to reset position of the ball and set properties of movePossible to 1
     }
 }
 
-// Dessiner du texte
-function drawText(text,x,y){
-    ctx.fillStyle = "#FFF";
-    ctx.font = "45px fon";
-    ctx.fillText(text, x, y);
-}
+let startBallMove = setInterval(moveBall, Math.ceil(1000/60));
 
-// collision detection
-function collision(b,p){
-    p.top = p.y;
-    p.bottom = p.y + p.height;
-    p.left = p.x;
-    p.right = p.x + p.width;
-    
-    b.top = b.y - b.radius;
-    b.bottom = b.y + b.radius;
-    b.left = b.x - b.radius;
-    b.right = b.x + b.radius;
-    
-    return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
-}
-
-// update function, the function that does all calculations
-function update(){
-    
-    // change the score of players, if the ball goes to the left "ball.x<0" computer win, else if "ball.x > canvas.width" the user win
-    if( ball.x - ball.radius < 0 ){
-        com.score++;
-        comScore.play();
-        resetBall();
-    }else if( ball.x + ball.radius > canvas.width){
-        user.score++;
-        userScore.play();
-        resetBall();
-    }
-    
-    // the ball has a velocity
-    ball.x += ball.velocityX;
-    ball.y += ball.velocityY;
-    
-    // computer plays for itself, and we must be able to beat it
-    // simple AI
-    com.y += ((ball.y - (com.y + com.height/2)))*0.1;
-    
-    // when the ball collides with bottom and top walls we inverse the y velocity.
-    if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height){
-        ball.velocityY = -ball.velocityY;
-        wall.play();
-    }
-    
-    // we check if the paddle hit the user or the com paddle
-    let player = (ball.x + ball.radius < canvas.width/2) ? user : com;
-    
-    // if the ball hits a paddle
-    if(collision(ball,player)){
-        // play sound
-        hit.play();
-        // we check where the ball hits the paddle
-        let collidePoint = (ball.y - (player.y + player.height/2));
-        // normalize the value of collidePoint, we need to get numbers between -1 and 1.
-        // -player.height/2 < collide Point < player.height/2
-        collidePoint = collidePoint / (player.height/2);
-        
-        // when the ball hits the top of a paddle we want the ball, to take a -45degees angle
-        // when the ball hits the center of the paddle we want the ball to take a 0degrees angle
-        // when the ball hits the bottom of the paddle we want the ball to take a 45degrees
-        // Math.PI/4 = 45degrees
-        let angleRad = (Math.PI/4) * collidePoint;
-        
-        // change the X and Y velocity direction
-        let direction = (ball.x + ball.radius < canvas.width/2) ? 1 : -1;
-        ball.velocityX = direction * ball.speed * Math.cos(angleRad);
-        ball.velocityY = ball.speed * Math.sin(angleRad);
-        
-        // speed up the ball everytime a paddle hits it.
-        ball.speed += 0.1;
-    }
-}
-
-// render function, the function that does al the drawing
-function render(){
-    
-    // clear the canvas
-    drawRect(0, 0, canvas.width, canvas.height, "#000");
-    
-    // draw the user score to the left
-    drawText(user.score,canvas.width/4,canvas.height/5);
-    
-    // draw the COM score to the right
-    drawText(com.score,3*canvas.width/4,canvas.height/5);
-    
-    // draw the net
-    drawNet();
-    
-    // draw the user's paddle
-    drawRect(user.x, user.y, user.width, user.height, user.color);
-    
-    // draw the COM's paddle
-    drawRect(com.x, com.y, com.width, com.height, com.color);
-    
-    // draw the ball
-    drawArc(ball.x, ball.y, ball.radius, ball.color);
-}
-function game(){
-    update();
-    render();
-}
-// number of frames per second
-let framePerSecond = 50;
-
-//call the game function 50 times every 1 Sec
-let loop = setInterval(game,1000/framePerSecond);
 
