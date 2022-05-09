@@ -11,6 +11,18 @@ let scoreleft = 0
 let scoreright = 0
 
 let boardBottomY = 300;
+
+
+window.addEventListener('resize', movePaddleLeft)
+
+window.addEventListener('load', movePaddleLeft)
+
+function movePaddleLeft()
+{
+    let x = paddleLeft.getBoundingClientRect().left + document.body.querySelector(".board").offsetWidth - 100 + "px";
+    paddleRight.style.left = x;
+}
+
 function movePaddle(e)
 {
     if (paddleRight.getBoundingClientRect().top > document.querySelector(".board").getBoundingClientRect().top + 5 &&
